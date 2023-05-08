@@ -2,8 +2,6 @@
 
 ### Tech
 
-This example uses a number of open source projects to work properly:
-
 * [node.js]
 * [Express]
 * [mysql2]
