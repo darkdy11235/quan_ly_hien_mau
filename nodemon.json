@@ -1,0 +1,5 @@
+{
+    "watch": ["src", "swagger.json"],
+    "ext": ".js",
+    "ignore": []
+  }
