@@ -10,12 +10,13 @@
 * [express-validator]
 * [dotenv]
 * [cors]
+* [swagger]
 
 ### Getting Started
 
 ``` sh
 # Clone this repo to your local machine using
-git clone git@github.com:Juliest88/mysql-node-express.git
+git clone git@github.com/darkdy11235/quan_ly_hien_mau
 
 # Get into the directory
 cd mysql-node-express
@@ -50,16 +51,4 @@ npm start
 npm run dev
 ```
 
-**Enjoy :)**
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
-   [git-repo-url]: <https://github.com/Juliest88/mysql-node-express.git>
-   [node.js]: <http://nodejs.org>
-   [express]: <http://expressjs.com>
-   [mysql2]: <https://github.com/sidorares/node-mysql2#readme>
-   [bcryptjs]: <https://github.com/dcodeIO/bcrypt.js#readme>
-   [jsonwebtoken]: <https://github.com/auth0/node-jsonwebtoken#readme>
-   [express-validator]: <https://express-validator.github.io/docs/>
-   [dotenv]: <https://github.com/motdotla/dotenv#readme>
-   [cors]: <https://github.com/expressjs/cors#readme>
+**Welcome To HELL :))**
