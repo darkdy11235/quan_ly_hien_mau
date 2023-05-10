@@ -49,6 +49,10 @@ npm start
 
 # Run the server locally in dev mode
 npm run dev
+
+# You can see the api docs at
+http://localhost:8000/api-docs
+# Change the port in .env file if you want to use a different port
 ```
 
 **Welcome To HELL :))**
