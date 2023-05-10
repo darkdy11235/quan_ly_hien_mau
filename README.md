@@ -38,7 +38,7 @@ cd src/db
 mysql -u [db_username] -p[db_password] < create-user-db.sql
 # you can edit the file if you want to change the db_name
 # if you are using a different db_name and it elready exists,
-# you can comment the first two lines, remain the line => USE blood_donation;
+# you can comment the first two lines, remain the line
 # and just change the db_name
 
 # Install dependencies

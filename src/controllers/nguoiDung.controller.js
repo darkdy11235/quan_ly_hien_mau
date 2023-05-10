@@ -50,7 +50,12 @@ class NguoiDungController {
     };
 
     getCurrentNguoiDung = async (req, res, next) => {
-        const { mat_khau, ...nguoiDungWithoutPassword } = req.currentNguoiDung;
+        const nguoiDung = await NguoiDungModel.findOne({ ma_nguoi_dung: req.currentUser.ma_nguoi_dung });
+        if (!nguoiDung) {
+            throw new HttpException(404, 'NguoiDung not found');
+        }
+
+        const { mat_khau, ...nguoiDungWithoutPassword } = nguoiDung;
 
         res.send(nguoiDungWithoutPassword);
     };
@@ -94,6 +99,9 @@ class NguoiDungController {
     };
 
     deleteNguoiDung = async (req, res, next) => {
+        if (req.currentUser.ma_nguoi_dung == req.params.ma_nguoi_dung) {
+            throw new HttpException(400, 'You can\'t delete yourself');
+        }
         const result = await NguoiDungModel.delete(req.params.ma_nguoi_dung);
         if (!result) {
             throw new HttpException(404, 'NguoiDung not found');

@@ -41,16 +41,10 @@ exports.updateNguoiDungSchema = [
         .optional()
         .notEmpty()
         .isLength({ min: 6 })
-        .withMessage('Password must contain at least 6 characters')
-        .custom((value, { req }) => !!req.body.confirm_password)
-        .withMessage('Please confirm your password'),
-    body('xac_nhan_mat_khau')
-        .optional()
-        .custom((value, { req }) => value === req.body.password)
-        .withMessage('confirm_password field must have the same value as the password field'),
+        .withMessage('Password must contain at least 6 characters'),
     body('trang_thai')
         .optional()
-        .isIn(['Đang hoạt động', 'Đã khóa'])
+        .isIn(['Hoạt động', 'Khóa'])
         .withMessage('Invalid status type'),
         body('quyen')
         .optional()

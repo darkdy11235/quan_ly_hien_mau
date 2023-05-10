@@ -31,7 +31,8 @@ const auth = (...quyen) => {
             // if the user role don't have the permission to do this action.
             // the user will get this error
             if (!ownerAuthorized && quyen.length && !quyen.includes(nguoiDung.quyen)) {
-                throw new HttpException(401, 'Unauthorized');
+                // not have permissions
+                throw new HttpException(401, 'Unauthorized - You are not the QuanTriVien');
             }
 
             // if the user has permissions

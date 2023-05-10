@@ -49,13 +49,13 @@ create table if not exists benh (
 
 create table if not exists nhom_mau (
     ma_nhom_mau int primary key auto_increment,
-    ten_nhom_mau nvarchar(50) not null,
+    ten_nhom_mau nvarchar(50) not null unique,
     mo_ta varchar(255)
 );
 
 create table if not exists nguoi_dung (
     ma_nguoi_dung int primary key auto_increment,
-    ten_dang_nhap varchar(50) not null,
+    ten_dang_nhap varchar(50) not null unique,
     mat_khau varchar(255) not null,
     trang_thai nvarchar(10) not null,
     quyen ENUM('QuanTriVien', 'DonViToChuc', 'TinhNguyenVien') not null default 'TinhNguyenVien'

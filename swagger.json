@@ -3,7 +3,7 @@
     "info": {
         "description": "This is a docs for api",
         "version": "1.0.0",
-        "title": "Blood Donation API",
+        "title": "Blood Donation API Docs",
         "contact": {
             "email": "huynhtrongkhoa2002@gmail.com"
         }
@@ -108,7 +108,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "A list of NguoiDung",
+                        "description": "successful operation",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -133,9 +133,9 @@
                 }
               ],
               "tags": [
-                "Record"
+                "NguoiDung"
               ],
-              "summary": "Update record",
+                "summary": "Find NguoiDung by ma_nguoi_dung",
               "produces": [
                 "application/json"
               ],
@@ -143,18 +143,112 @@
                 {
                   "in": "path",
                   "name": "ma_nguoi_dung",
-                  "description": "ID of body",
+                  "description": "ma_nguoi_dung of body",
                   "required": true,
                   "type": "string"
                 }
               ],
               "responses": {
                 "default": {
-                  "description": "successful operation"
+                  "description": "successful operation",
+                    "schema": {
+                        "$ref": "#/definitions/GetNguoiDungByMaNguoiDung"
+                    }
                 }
               }
+            },
+            "patch" : {
+                "security": [
+                    {
+                      "Bearer": []
+                    }
+                  ],
+                  "tags": [
+                    "NguoiDung"
+                  ],
+                    "summary": "Update NguoiDung by ma_nguoi_dung",
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "in": "path",
+                      "name": "ma_nguoi_dung",
+                      "description": "ma_nguoi_dung of body",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Created user object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateNguoiDungByMaNguoiDung"
+                        }
+                    }
+                  ],
+                  "responses": {
+                    "default": {
+                      "description": "successful operation"
+                    }
+                  }
             }
-          }
+          },
+          "/nguoi_dung/ten_dang_nhap/{ten_dang_nhap}": {
+              "get": {
+                "security": [
+                  {
+                    "Bearer": []
+                  }
+                ],
+                "tags": [
+                  "NguoiDung"
+                ],
+                  "summary": "Find NguoiDung by ten_dang_nhap",
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "ten_dang_nhap",
+                    "description": "ten_dang_nhap of body",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "default": {
+                    "description": "successful operation",
+                      "schema": {
+                          "$ref": "#/definitions/GetNguoiDungByTenDangNhap"
+                      }
+                  }
+                }
+              }
+            },
+            "/nguoi_dung/whoami": {
+                "get": {
+                    "security": [
+                      {
+                        "Bearer": []
+                      }
+                    ],
+                    "tags": [
+                      "NguoiDung"
+                    ],
+                      "summary": "Find current NguoiDung",
+                    "produces": [
+                      "application/json"
+                    ],
+                    "responses": {
+                      "default": {
+                        "description": "successful operation"
+                      }
+                    }
+                  }
+            }
     },
     "definitions": {
         "Login": {
@@ -208,8 +302,32 @@
             "xml": {
                 "name": "NguoiDung"
             }
+        },
+        "GetNguoiDungByTenDangNhap": {
+            "type": "object",
+            "xml": {
+                "name": "NguoiDung"
+            }
+        },
+        "UpdateNguoiDungByMaNguoiDung": {
+            "type": "object",
+            "properties": {
+                "ten_dang_nhap": {
+                    "type": "string"
+                },
+                "mat_khau": {
+                    "type": "string"
+                },
+                "trang_thai": {
+                    "type": "string"
+                },
+                "quyen": {
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "NguoiDung"
+            }
         }
-        
-
     }
 }
