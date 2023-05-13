@@ -83,15 +83,15 @@ alter table thong_bao_nguoi_dung modify trang_thai enum('Đã đọc', 'Chưa đ
 create table if not exists tinh_nguyen_vien (
     ma_tnv int primary key auto_increment,
     ten_tnv nvarchar(50) not null,
-    cmnd_cccd varchar(15) not null,
+    cmnd_cccd varchar(15) not null unique,
     ngay_sinh date not null,
-    gioi_tinh nvarchar(10) not null,
-    so_dien_thoai varchar(15) not null,
+    gioi_tinh nvarchar(10) not null enum('Nam', 'Nữ'),
+    so_dien_thoai varchar(15) not null unique,
     email varchar(50) not null,
     nghe_nghiep nvarchar(50) not null,
     ma_dia_chi_cu_the int not null,
     ma_nhom_mau int not null,
-    ma_nguoi_dung int not null
+    ma_nguoi_dung int not null unique
 );
 
 -- create foreign key for tinh_nguyen_vien --

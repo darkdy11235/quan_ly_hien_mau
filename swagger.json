@@ -193,6 +193,34 @@
                       "description": "successful operation"
                     }
                   }
+            },
+            "delete" : {
+                "security": [
+                    {
+                      "Bearer": []
+                    }
+                  ],
+                  "tags": [
+                    "NguoiDung"
+                  ],
+                    "summary": "Delete NguoiDung by ma_nguoi_dung",
+                  "produces": [
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "in": "path",
+                      "name": "ma_nguoi_dung",
+                      "description": "ma_nguoi_dung of body",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                  "responses": {
+                    "default": {
+                      "description": "successful operation"
+                    }
+                  }
             }
           },
           "/nguoi_dung/ten_dang_nhap/{ten_dang_nhap}": {

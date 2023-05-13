@@ -31,7 +31,7 @@ class TinhNguyenVienModel{
 
     create = async ({ten_tnv, cmnd_cccd, ngay_sinh, gioi_tinh, so_dien_thoai, email, nghe_nghiep, ma_dia_chi_cu_the, ma_nhom_mau, ma_nguoi_dung}) => {
         const sql = `INSERT INTO ${this.tableName}
-        (ten_tnv, cmnd_cccd, ngay_sinh, gioi_tinh, so_dien_thoai, email, nghe_nghiep, ma_dia_chi_cu_the, ma_nhom_mau, ma_nguoi_dung) VALUES (?,?)`;
+        (ten_tnv, cmnd_cccd, ngay_sinh, gioi_tinh, so_dien_thoai, email, nghe_nghiep, ma_dia_chi_cu_the, ma_nhom_mau, ma_nguoi_dung) VALUES (?,?,?,?,?,?,?,?,?,?)`;
 
         const result = await query(sql, [ten_tnv, cmnd_cccd, ngay_sinh, gioi_tinh, so_dien_thoai, email, nghe_nghiep, ma_dia_chi_cu_the, ma_nhom_mau, ma_nguoi_dung]);
         const affectedRows = result ? result.affectedRows : 0;

@@ -28,7 +28,7 @@ exports.createNguoiDungSchema = [
         .withMessage('Invalid status type'),
     body('quyen')
         .optional()
-        .isIn([Quyen.QTV, Quyen.DVTC, Quyen.TNV])
+        .isIn([Quyen.DVTC, Quyen.TNV])
         .withMessage('Invalid Role type')
 ];
 
@@ -48,7 +48,7 @@ exports.updateNguoiDungSchema = [
         .withMessage('Invalid status type'),
         body('quyen')
         .optional()
-        .isIn([Quyen.QTV, Quyen.DVTC, Quyen.TNV])
+        .isIn([Quyen.DVTC, Quyen.TNV])
         .withMessage('Invalid Role type'),
     body()
         .custom(value => {
