@@ -17,6 +17,29 @@ class BaiDangModel{
         return await query(sql, [...values]);
     }
 
+    findBaiDangByMaDVTC = async (ma_dvtc) => {
+        let sql = `SELECT * FROM ${this.tableName} WHERE ma_dvtc = ?`;
+        return await query(sql, [ma_dvtc]);
+    }
+
+    findBaiDangByMaTNV = async (ma_tnv) => { 
+        let sql = `SELECT * FROM ${this.tableName} 
+                    WHERE ma_bai_dang IN (SELECT ma_bai_dang FROM phieu_dang_ky WHERE ma_tnv = ?)`;
+    }
+
+    findBaiDangByMaDVTCAndTrangThai = async (ma_dvtc, trang_thai) => {
+        let sql = `SELECT * FROM ${this.tableName} WHERE ma_dvtc = ? AND trang_thai = ?`;
+
+        return await query(sql, [ma_dvtc, trang_thai]);
+    }
+
+    findBaiDangByTime = async (ngay_bat_dau, ngay_ket_thuc) => {
+        let sql = `SELECT * FROM ${this.tableName} WHERE ngay_hien_mau >= ? AND ngay_hien_mau <= ? and trang_thai <> 'Đã kết thúc'`;
+
+        return await query(sql, [ngay_bat_dau, ngay_ket_thuc]);
+    }
+        
+
     findOne = async (params) => {
         const { columnSet, values } = multipleColumnSet(params)
 

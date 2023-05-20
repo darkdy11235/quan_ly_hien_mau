@@ -1,0 +1,48 @@
+<!-- Example EJS template -->
+<DOCTYPE html>
+<html>
+<body>
+    <h1>Login</h1>
+    <form id="loginForm" action="/api/v1/nguoi_dung/login" method="POST">
+    <div>
+        <label for="ten_dang_nhap">Tên đăng nhập</label>
+        <input type="text" name="ten_dang_nhap" id="ten_dang_nhap">
+    </div>
+    <div>
+        <label for="mat_khau">Mật khẩu</label>
+        <input type="password" name="mat_khau" id="mat_khau">
+    </div>
+    <button type="submit">Đăng nhập</button>
+</form>
+</body>
+<script>
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(loginForm);
+        const ten_dang_nhap = formData.get('ten_dang_nhap');
+        const mat_khau = formData.get('mat_khau');
+        const data = {
+            ten_dang_nhap,
+            mat_khau
+        }
+        const response = await fetch('/api/v1/nguoi_dung/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (result.success) {
+            alert('Đăng nhập thành công');
+            window.location.href = '/';
+        } else {
+            alert('Đăng nhập thất bại');
+        }
+    });
+</script>
+</html>
+</DOCTYPE>
+
+

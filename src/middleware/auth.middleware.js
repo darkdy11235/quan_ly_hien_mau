@@ -37,6 +37,7 @@ const auth = (...quyen) => {
 
             // if the user has permissions
             req.currentUser = nguoiDung;
+            console.log(req.currentUser);
             next();
         } catch (e) {
             e.status = 401;

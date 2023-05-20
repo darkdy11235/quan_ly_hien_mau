@@ -1,6 +1,5 @@
 const BaiDangModel = require('../models/baiDang.model');
 const HttpException = require('../utils/HttpException.utils');
-const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -15,24 +14,34 @@ class BaiDangController {
         if (!baiDangList.length) {
             throw new HttpException(404, 'BaiDang not found');
         }
-
-        baiDangList = baiDangList.map(baiDang => {
-            const { password, ...baiDangWithoutPassword } = baiDang;
-            return baiDangWithoutPassword;
-        });
-
         res.send(baiDangList);
     };
 
-    getBaiDangById = async (req, res, next) => {
-        const baiDang = await BaiDangModel.findOne({ id: req.params.id });
+    getBaiDangByDVTC = async (req, res, next) => {
+        const baiDang = await BaiDangModel.findBaiDangByMaDVTC({ ma_dvtc: req.params.ma_dvtc});
         if (!baiDang) {
             throw new HttpException(404, 'BaiDang not found');
         }
 
-        const { password, ...baiDangWithoutPassword } = baiDang;
+        res.send(baiDang);
+    };
 
-        res.send(baiDangWithoutPassword);
+    getBaiDangByTNV = async (req, res, next) => {
+        const baiDang = await BaiDangModel.findBaiDangByMaTNV({ ma_tnv: req.params.ma_tnv });
+        if (!baiDang) {
+            throw new HttpException(404, 'BaiDang not found');
+        }
+
+        res.send(baiDang);
+    };
+
+    getBaiDangById = async (req, res, next) => {
+        const baiDang = await BaiDangModel.findOne({ ma_bai_dang: req.params.ma_bai_dang });
+        if (!baiDang) {
+            throw new HttpException(404, 'BaiDang not found');
+        }
+
+        res.send(baiDang);
     };
 
     getBaiDangBybaiDangName = async (req, res, next) => {
@@ -41,21 +50,20 @@ class BaiDangController {
             throw new HttpException(404, 'BaiDang not found');
         }
 
-        const { password, ...baiDangWithoutPassword } = baiDang;
-
-        res.send(baiDangWithoutPassword);
+        res.send(baiDang);
     };
 
-    getCurrentBaiDang = async (req, res, next) => {
-        const { password, ...baiDangWithoutPassword } = req.currentBaiDang;
+    getBaiDangByTime = async (req, res, next) => {
+        const baiDang = await BaiDangModel.findBaiDangByTime({ ngay_bat_dau: req.params.ngay_bat_dau,  ngay_ket_thuc: req.params.ngay_ket_thuc  });
+        if (!baiDang) {
+            throw new HttpException(404, 'BaiDang not found');
+        }
+        console.log(req.params)
 
-        res.send(baiDangWithoutPassword);
+        res.send(baiDang);
     };
 
     createBaiDang = async (req, res, next) => {
-        this.checkValidation(req);
-
-        await this.hashPassword(req);
 
         const result = await BaiDangModel.create(req.body);
 
@@ -67,15 +75,10 @@ class BaiDangController {
     };
 
     updateBaiDang = async (req, res, next) => {
-        this.checkValidation(req);
-
-        await this.hashPassword(req);
-
-        const { confirm_password, ...restOfUpdates } = req.body;
 
         // do the update query and get the result
         // it can be partial edit
-        const result = await BaiDangModel.update(restOfUpdates, req.params.id);
+        const result = await BaiDangModel.update(req.body, req.params.ma_bai_dang);
 
         if (!result) {
             throw new HttpException(404, 'Something went wrong');
@@ -90,54 +93,12 @@ class BaiDangController {
     };
 
     deleteBaiDang = async (req, res, next) => {
-        const result = await BaiDangModel.delete(req.params.id);
+        const result = await BaiDangModel.delete(req.params.ma_bai_dang);
         if (!result) {
             throw new HttpException(404, 'BaiDang not found');
         }
         res.send('BaiDang has been deleted');
     };
-
-    baiDangLogin = async (req, res, next) => {
-        this.checkValidation(req);
-
-        const { email, password: pass } = req.body;
-
-        const baiDang = await BaiDangModel.findOne({ email });
-
-        if (!baiDang) {
-            throw new HttpException(401, 'Unable to login!');
-        }
-
-        const isMatch = await bcrypt.compare(pass, baiDang.password);
-
-        if (!isMatch) {
-            throw new HttpException(401, 'Incorrect password!');
-        }
-
-        // baiDang matched!
-        const secretKey = process.env.SECRET_JWT || "";
-        const token = jwt.sign({ baiDang_id: baiDang.id.toString() }, secretKey, {
-            expiresIn: '24h'
-        });
-
-        const { password, ...baiDangWithoutPassword } = baiDang;
-
-        res.send({ ...baiDangWithoutPassword, token });
-    };
-
-    checkValidation = (req) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            throw new HttpException(400, 'Validation faild', errors);
-        }
-    }
-
-    // hash password if it exists
-    hashPassword = async (req) => {
-        if (req.body.password) {
-            req.body.password = await bcrypt.hash(req.body.password, 8);
-        }
-    }
 }
 
 
